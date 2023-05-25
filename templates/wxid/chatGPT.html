@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ChatGPT 聊天室</title>
+    <style>
+        input {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .box > div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .top {
+            height: 96px;
+            box-shadow: #888 0 0 10px;
+        }
+
+        .center {
+            flex: 1;
+        }
+
+        .btn {
+            height: 64px;
+            border-top: 1px solid #ddd;
+            background-color: #f7f7f7;
+        }
+
+        .content {
+            width: 1000px;
+            height: 100%;
+        }
+
+        .loge {
+            height: 100%;
+            display: flex;
+            float: left;
+        }
+
+        .loge_img {
+            height: 48px;
+            width: 48px;
+            margin-top: 20px;
+        }
+
+        .loge_title {
+            margin-top: 16px;
+            height: 64px;
+            font-size: 32px;
+            font-family: "Microsoft YaHei UI";
+            color: #333;
+            line-height: 64px;
+            margin-left: 10px;
+        }
+
+        .top_right{
+            float: right;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .top_right a{
+            color: salmon;
+            text-decoration: none;
+        }
+
+        .key_box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .key_box > div {
+            height: 38px;
+        }
+
+        .key_box > div > input {
+            height: 38px;
+            border-radius: 5px;
+        }
+
+        .key_input {
+            flex: 1;
+        }
+
+        .key_input input {
+            width: 90%;
+            border: 1px solid #c2c2c2;
+            padding-left: 10px;
+        }
+
+        .key_search {
+            width: 120px;
+        }
+
+        .key_set {
+            width: 120px;
+        }
+
+        .key_btn {
+            background-color: #1b85da;
+            color: #fff;
+            width: 100px;
+        }
+
+        .cash {
+            display: flex;
+            height: 32px;
+        }
+
+        .cash div {
+            margin-right: 50px;
+        }
+
+        .err {
+            color: #f66;
+        }
+
+        .btn > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn > div > div {
+            height: 48px;
+            margin-top: 6px;
+        }
+
+        .btn > div > div > input {
+            height: 100%;
+        }
+
+        .clean {
+            width: 42px;
+        }
+
+        .clean_icon {
+            height: 32px;
+            width: 32px;
+            fill: #888;
+            padding-top: 5px;
+        }
+
+        .text {
+            flex: 1;
+        }
+
+        .text input {
+            width: 95%;
+            border: 1px solid #c2c2c2;
+            border-radius: 5px;
+            padding-left: 10px;
+            font-size: 18px;
+        }
+
+        .sub {
+            width: 120px;
+        }
+
+        .sub input {
+            border-radius: 5px;
+        }
+
+        .none_info {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chatGPT_ico {
+            margin-top: -60px;
+        }
+
+        .chatGPT_ico svg {
+            height: 100px;
+            width: 320px;
+            display: block;
+        }
+
+        .info_box {
+            display: flex;
+            margin-top: 23px;
+            margin-bottom: 15px;
+            flex-direction: column;
+        }
+
+        .info_box > div {
+            padding: 10px 12px;
+        }
+
+        .info_box > div pre{
+            font-family: "Microsoft YaHei UI Light";
+            white-space: pre-wrap;
+            margin: 3px;
+        }
+
+        .ai_info_val{
+            display: flex;
+            justify-content: left;
+        }
+        .me_info_val{
+            display: flex;
+            justify-content: right;
+            justify-items: right;
+            margin-right:0;
+            margin-left: auto;
+            width: 100%;
+        }
+        .info_val_text {
+            padding: 8px 10px;
+            max-width: 80%;
+        }
+        .me_info_val .info_val_text {
+            background: linear-gradient(141.69deg, #99dbf8 0%, #39bcff 100%);
+            border-radius: 10px 10px 0 10px;
+        }
+        .ai_info_val .info_val_text {
+            background: linear-gradient(141.13deg, #eda9a9 26.29%, #b8aef0 100%);
+            border-radius: 10px 10px 10px 0;
+        }
+        .header_img_box{
+            position: relative;
+            width: 42px;
+        }
+        .header_img{
+            height: 32px;
+            width: 32px;
+            border-radius: 32px;
+            position: absolute;
+            bottom: 3px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="top">
+        <div class="content">
+            <div class="loge">
+                <svg t="1677660329819" class="icon loge_img" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" p-id="7657">
+                    <path d="M248.03555555 971.09333333c-50.63111111 0-94.43555555-37.888-100.57955555-89.20177778l-6.82666667-57.11644444c-1.47911111-12.51555555 7.39555555-23.77955555 19.91111112-25.25866666 12.51555555-1.47911111 23.77955555 7.39555555 25.25866666 19.9111111l6.82666667 57.11644445c3.64088889 30.49244445 31.40266667 52.33777778 62.00888889 48.69688889L417.90577778 905.67111111c2.50311111-0.34133333 5.00622222-0.22755555 7.50933333 0.34133334 72.36266667 15.70133333 144.27022222 11.94666667 213.67466667-10.8088889C809.52888889 838.99733333 925.35466667 675.84 920.91733333 498.23288889 917.73155555 372.84977778 859.02222222 257.59288889 759.808 182.04444445c-99.44177778-75.66222222-226.64533333-101.48977778-349.07022222-70.99733334-172.82844445 43.12177778-299.23555555 197.51822222-307.31377778 375.35288889-4.096 89.42933333 20.02488889 175.44533333 69.85955555 249.05955555 7.05422222 10.35377778 4.32355555 24.576-6.03022222 31.63022223-10.35377778 7.05422222-24.576 4.32355555-31.63022222-6.03022223-55.40977778-81.69244445-82.26133333-177.37955555-77.71022222-276.59377777 2.27555555-48.58311111 12.40177778-96.256 30.26488889-141.88088889 17.408-44.37333333 41.64266667-85.78844445 72.02133333-122.99377778 30.37866667-37.20533333 66.21866667-69.06311111 106.26844444-94.89066666 41.18755555-26.51022222 86.016-45.96622222 133.12-57.68533334C535.66577778 32.99555555 676.97777778 61.78133333 787.456 145.86311111 897.70666667 229.83111111 962.90133333 357.83111111 966.42844445 497.09511111c4.89244445 197.51822222-123.79022222 378.99377778-313.00266667 441.23022222-76.00355555 25.03111111-154.624 29.35466667-233.69955556 12.85688889l-159.51644444 19.11466667c-4.096 0.56888889-8.07822222 0.79644445-12.17422223 0.79644444z"
+                          p-id="7658"></path>
+                    <path d="M224.14222222 399.13244445a35.95377778 35.95377778 0 1 0 71.90755556 0 35.95377778 35.95377778 0 1 0-71.90755556 0Z"
+                          p-id="7659"></path>
+                    <path d="M463.98577778 399.13244445a35.95377778 35.95377778 0 1 0 71.90755555 0 35.95377778 35.95377778 0 1 0-71.90755555 0Z"
+                          p-id="7660"></path>
+                </svg>
+                <div class="loge_title">ChatGPT</div>
+            </div>
+            <div class="top_right">
+                <a target="_blank" href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=gjipSAwYR627ZctnTbcsHkLpvKA4YG8e&authKey=krVxvGsKJGc9EeWuYPXeoazuw8%2BjfZ9bl2%2FEOUox3sg%2Fn3GIHuf9a%2FOJqvDA6z54&noverify=0&group_code=614702246">
+                    问题反馈
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="center">
+        <div class="content">
+            <div class="key_box">
+                <div class="key_input"><input type="text" placeholder="填写使用独享key" v-model="key"></div>
+                <!--                https://v1.apigpt.cn/key/?key=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-->
+                <div class="key_search"><input @click="get_cash" class="key_btn" type="button" value="查询余额"></div>
+                <div class="key_set"><input class="key_btn" type="button" value="使用"></div>
+            </div>
+            <div class="cash">
+                <div class="all">{{ cash[0] }}</div>
+                <div class="use">{{ cash[1] }}</div>
+                <div class="beLeft">{{ cash[2] }}</div>
+                <div class="err">{{ err }}</div>
+            </div>
+            <div class="none_info" v-if="info_list.length < 1">
+                <div class="chatGPT_ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="314.982" viewBox="0 0 338.667 83.339"
+                         xmlns:v="https://vecta.io/nano" class="w-40 mx-auto h-24">
+                        <path d="M200.154 32.427v.028c-.169 0-.339.028-.508.028s-.339-.028-.508-.028c-10.075 0-16.312 6.294-16.312 16.397v4.967c0 9.736 6.322 15.776 16.453 15.776a4.38 4.38 0 0 0 .621-.028c.141 0 .254.028.395.028 6.801 0 11.543-2.483 14.562-7.62l-6.011-3.472c-2.004 2.963-4.685 5.193-8.523 5.193-5.136 0-8.212-3.161-8.212-8.495V53.79h23.819v-5.87c0-9.426-6.18-15.494-15.776-15.494zm-.508 5.786c4.685.226 7.507 3.33 7.507 8.438v1.411h-15.07v-.819c0-5.644 2.681-8.805 7.563-9.031zm-36.998-5.758c-4.487 0-8.353 1.863-10.385 4.967l-.508.79v-4.911h-8.523v47.667h8.946v-16.65l.508.762c1.919 2.85 5.673 4.543 10.047 4.543h.226.197c7.366 0 14.788-4.798 14.788-15.55v-6.039c0-7.733-4.572-15.55-14.845-15.55l-.056-.028h-.197zm-2.088 6.717c5.193.085 8.41 3.612 8.41 9.257v5.192c0 5.644-3.246 9.144-8.495 9.257-4.882-.085-8.297-3.81-8.297-9.116v-5.334c0-5.362 3.443-9.144 8.382-9.257zm115.934-18.485l-17.215 48.09h9.68l3.302-10.301h18.795v.113l3.302 10.216h9.68l-17.243-48.09h-1.016l-.028-.028zm5.137 8.269l7.196 22.719h-14.45zm57.035-1.496v-6.773h-29.52v6.773h10.357v34.487h-10.357v6.773h29.52v-6.773h-10.357V27.46zm-97.139 4.996h-.254-.141c-4.995 0-8.551 1.693-10.301 4.939l-.536.988v-5.08h-8.523v35.446h8.946v-21.11c0-4.967 2.681-7.817 7.309-7.902 4.431.085 6.971 2.879 6.971 7.705v21.307h8.946V45.917c0-8.438-4.628-13.462-12.389-13.462zM114.473 19.699c-13.18 0-21.392 8.213-21.392 21.449v7.14c0 13.236 8.184 21.448 21.392 21.448h.198.197c13.18 0 21.392-8.212 21.392-21.448v-7.14c0-13.236-8.212-21.449-21.392-21.449h-.197zm.198 7.169c7.846.085 12.361 5.108 12.361 13.8v8.128c0 8.692-4.515 13.716-12.361 13.8-7.846-.085-12.362-5.108-12.362-13.8v-8.128c0-8.692 4.516-13.716 12.362-13.8zM36.751.001c-9.116 0-17.215 5.87-20.038 14.534A20.83 20.83 0 0 0 2.828 24.61C-1.744 32.512-.7 42.446 5.425 49.219 3.534 54.892 4.183 61.1 7.203 66.237c4.544 7.93 13.687 11.994 22.634 10.103a20.78 20.78 0 0 0 15.635 6.999c9.116 0 17.215-5.87 20.038-14.534 5.87-1.214 10.922-4.883 13.857-10.075 4.6-7.902 3.556-17.836-2.568-24.609v-.028a20.76 20.76 0 0 0-1.778-17.046C70.476 9.145 61.332 5.08 52.414 6.971A20.86 20.86 0 0 0 36.751.001zm0 5.419l-.028.028c3.669 0 7.197 1.27 10.019 3.613-.113.056-.339.197-.508.282L29.64 18.91c-.847.48-1.355 1.383-1.355 2.371v22.464l-7.14-4.12v-18.57A15.63 15.63 0 0 1 36.751 5.419zm19.99 6.54a15.62 15.62 0 0 1 13.566 7.825c1.806 3.161 2.483 6.858 1.862 10.442-.113-.085-.338-.197-.48-.282l-16.594-9.596a2.78 2.78 0 0 0-2.737 0L32.913 31.581V23.34l16.058-9.285a15.54 15.54 0 0 1 7.77-2.096zm-41.043 8.53v19.727c0 .988.508 1.863 1.355 2.371l19.416 11.204L29.3 57.94l-16.03-9.257a15.63 15.63 0 0 1-5.7-21.336 15.65 15.65 0 0 1 8.128-6.858zm37.196 4.882l16.058 9.257c7.479 4.318 10.018 13.857 5.7 21.336l.028.028c-1.834 3.161-4.713 5.588-8.128 6.83V43.095c0-.988-.508-1.891-1.355-2.37L45.753 29.492zm-11.797 6.802l8.185 4.741v9.454l-8.185 4.741-8.184-4.741v-9.454zm12.869 7.451l7.14 4.12v18.542c0 8.636-6.999 15.635-15.606 15.635v-.028c-3.641 0-7.197-1.27-9.991-3.612.113-.056.367-.198.508-.283l16.594-9.567c.847-.48 1.383-1.383 1.354-2.371zM49.309 51.76V60l-16.058 9.257c-7.479 4.29-17.018 1.75-21.336-5.701h.028c-1.834-3.133-2.484-6.858-1.863-10.442.113.085.339.197.48.282l16.594 9.596a2.78 2.78 0 0 0 2.737 0z"></path>
+                    </svg>
+                </div>
+                <div class="none_text">基于 OpenAI 的 ChatGPT 自然语言模型人工智能对话</div>
+            </div>
+            <div class="info_box" v-if="!(info_list.length < 1)">
+                <div v-for="info in info_list" :class="info.user+'_info'">
+                    <div class="info_val_box" :class="info.user+'_info_val'">
+                        <div class="header_img_box" v-if="info.user == 'ai'">
+                            <img class="header_img" src="./static/wxid/img/chat_header.png" alt="">
+                        </div>
+                        <pre class="info_val_text">{{ info.text }}</pre>
+                        <div class="header_img_box" v-if="info.user == 'me'">
+                            <img class="header_img" src="./static/wxid/img/me_header.webp" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn">
+        <div class="content">
+            <div class="clean" @click="clean_info">
+                <svg t="1677659920552" class="clean_icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" p-id="2848" width="48" height="48">
+                    <path d="M202.666667 256h-42.666667a32 32 0 0 1 0-64h704a32 32 0 0 1 0 64H266.666667v565.333333a53.333333 53.333333 0 0 0 53.333333 53.333334h384a53.333333 53.333333 0 0 0 53.333333-53.333334V352a32 32 0 0 1 64 0v469.333333c0 64.8-52.533333 117.333333-117.333333 117.333334H320c-64.8 0-117.333333-52.533333-117.333333-117.333334V256z m224-106.666667a32 32 0 0 1 0-64h170.666666a32 32 0 0 1 0 64H426.666667z m-32 288a32 32 0 0 1 64 0v256a32 32 0 0 1-64 0V437.333333z m170.666666 0a32 32 0 0 1 64 0v256a32 32 0 0 1-64 0V437.333333z"
+                          p-id="2849"></path>
+                </svg>
+            </div>
+            <div class="text"><input class="content_val" v-model="prompt" type="text" placeholder="请输入..." @keydown="send_msg_input"></div>
+            <div class="sub">
+                <input class="key_btn user_content_val" @click="send_msg" type="button" value="发送">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="./static/jq.js"></script>
+
+<!-- 最新的 vue 文件 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+<script src="./static/vue.js"></script>
+
+<script>
+    var app = new Vue({
+        el: "#box",
+        data: {
+            key: "",
+            cash: [" ", " ", " "],
+            err: "",
+            info_list: [],
+            messages: [{"role": "user", "content": "Hello!"}],
+            ai_is_back: true,
+            ai_is_stop: true,
+            has_info: false,
+            prompt: "",
+            num: 0
+        },
+        methods: {
+            get_cash: function () {
+                if (this.key === "") {
+                    // this.err = "请先输入key"
+                    return false
+                }
+                var cash = ["1", "2", "3"]
+                var thet = this
+
+                $.getJSON("/open_fill?key=" + this.key, function (e) {
+                    console.log(e)
+                    if (e.code == 1) {
+                        cash[0] = "总：$" + e.all_usd.toFixed(2)
+                        cash[1] = "使用：$" + e.use_usd.toFixed(2)
+                        cash[2] = "剩余：$" + e.fill_usd.toFixed(2)
+                        thet.cash = cash
+                        thet.set_info()
+                    } else {
+                        thet.cash = [" ", " ", " "]
+                        thet.err = "查询余额失败，可能key错误或已失效"
+                    }
+                })
+                return true
+            },
+            clean_info: function () {
+                this.info_list = []
+                this.messages = []
+                this.has_info = false
+                this.set_info()
+            },
+            send_msg: function () {
+                this.compress_messages()
+                this.info_list.push({
+                    "user": "me",
+                    "text": this.prompt
+                })
+                this.messages.push({
+                    "role": "user",
+                    "content": this.prompt
+                })
+                this.has_info = true
+                this.chatGPT_is_start()
+                var ai_res = this.sendMessageToChatbot(this.prompt)
+                this.prompt = ""
+                // console.log(ai_res)
+            },
+            send_msg_input: function (){
+                var theEvent = window.event || e;
+                var key = theEvent.keyCode || theEvent.which || theEvent.charCode;
+                if (key == 13){
+                    this.send_msg()
+                }
+            },
+            // 加载本地数据
+            load_info: function () {
+                var chat_info = window.localStorage.getItem("chat_info")
+                // 当该值为空时，写入初始数据
+                if (!chat_info) {
+                    chat_info = JSON.stringify([])
+                    window.localStorage.setItem("chat_info", chat_info)
+                }
+                this.info_list = JSON.parse(chat_info)
+                console.log(this.info_list.length)
+                this.has_info = this.info_list.length < 1;
+
+                var messages = window.localStorage.getItem("messages")
+                // 当该值为空时，写入初始数据
+                if (!messages) {
+                    messages = JSON.stringify([])
+                    window.localStorage.setItem("messages", messages)
+                }
+                this.messages = JSON.parse(messages)
+
+                var openai_key = window.localStorage.getItem("openai_key")
+                // 当该值为空时，写入初始数据
+                if (!openai_key) {
+                    openai_key = this.key
+                    window.localStorage.setItem("openai_key", openai_key)
+                }
+                this.key = openai_key
+            },
+            // 写入本地数据
+            set_info: function () {
+                var chat_info = JSON.stringify(this.info_list)
+                window.localStorage.setItem("chat_info", chat_info)
+
+                var messages = JSON.stringify(this.messages)
+                window.localStorage.setItem("messages", messages)
+
+                window.localStorage.setItem("openai_key", this.key)
+            },
+            // 获取chatgpt回答
+            sendMessageToChatbot: function (message) {
+                const openaiApiKey = this.key;
+                const chatbotEndpoint = "/sendChatGPT";
+                var thet = this
+                let data = {
+                  "messages": JSON.stringify(this.messages),
+                    "key": openaiApiKey
+                };
+                $.post(chatbotEndpoint, data, function (retext){
+                    console.log(retext)
+                    var data = {
+                        role: "assistant",
+                        content: retext
+                    }
+                    thet.messages.push(data)
+                    thet.set_info()
+                    thet.chatGPT_is_over(retext)
+                }).fail(function (){
+                    thet.chatGPT_is_over("返回结果错误了...")
+                })
+            },
+            // chatGPT正在回答状态
+            chatGPT_is_start: function (){
+                $(".content_val").attr("disabled", "").attr("placeholder", "ChatGPT回答中，请稍后...")
+                $(".user_content_val").attr("disabled", "").val("等待")
+                this.info_list.push({
+                    "user": "ai",
+                    "text": ""
+                })
+                this.val_add("GPT思考中...")
+            },
+            // chatGPT返回内容
+            chatGPT_is_over: function (retext){
+                $(".content_val").removeAttr("disabled").attr("placeholder", "请输入...")
+                $(".user_content_val").removeAttr("disabled").val("发送")
+                this.info_list[this.info_list.length-1]["text"] = ""
+                this.val_add(retext)
+            },
+            // 打字机效果
+            val_add: function (text){
+                var thet = this
+                var index = 0
+                for (var i = 0; i < text.length; i ++){
+                    setTimeout(function (){
+                        thet.info_list[thet.info_list.length-1]["text"] = text.substring(0, index + 1)
+                        index += 1
+                        window.scrollTo(0,document.body.scrollHeight)
+                        thet.set_info()
+                    }, 50 + i * 10);
+                    this.num += 1
+                }
+            },
+            // 压缩上下文
+            compress_messages: function(){
+                if (this.messages.length >= 10) {
+                    this.messages.splice(0, 4)
+                    this.set_info()
+                  }
+            }
+        },
+        mounted: function () {
+            this.load_info()
+        }
+    })
+</script>
+</body>
+</html>
