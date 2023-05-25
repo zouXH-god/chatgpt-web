@@ -49,5 +49,5 @@ docker run -p 80:80 -id shiran2488/openai_web:1
 - 参数：
   - key：字符串，必填
 ```
-更具体的方法请查看我的博客：[chatGPT机器人，保姆级搭建教程](http://blog.xin-hao.top/index.php/2023/04/12/51/ "chatGPT机器人，保姆级搭建教程")
+更具体的方法请查看我的博客：[ChatGPT国内站点一键部署，三行指令搞定](http://blog.xin-hao.top/index.php/2023/05/02/chatgpt%e5%9b%bd%e5%86%85%e7%ab%99%e7%82%b9%e4%b8%80%e9%94%ae%e9%83%a8%e7%bd%b2%ef%bc%8c%e4%b8%89%e8%a1%8c%e6%8c%87%e4%bb%a4%e6%90%9e%e5%ae%9a/ "ChatGPT国内站点一键部署，三行指令搞定")
 欢迎加Q群交流：614702246
